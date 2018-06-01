@@ -78,7 +78,7 @@ public class DriveTrain {
 		
 		driveTrain = new AutoDriveTrain(fL.talon,rL.talon,fR.talon,rR.talon);
 	}
-	public void enable(){
+	public void enablePositionFinder(){
 		isEnabled= true;
 		periodTimer.start();
 		ahrs.reset();
@@ -109,7 +109,7 @@ public class DriveTrain {
 	 * This method translates the robot speed to match the speed relative to the field instead of the robot.
 	 * 
 	 */
-	public Vector fieldTranslation(Vector robotSpeed, double theta_degrees){
+	private Vector fieldTranslation(Vector robotSpeed, double theta_degrees){
 		Vector transformed = new Vector();
 		//converting the angle translations to radians. Note that the thetaY_radians variable is for manipulating the Y. For notes, please see the picture documentation.
 		double theta_radians = theta_degrees * Math.PI/180;
@@ -129,7 +129,7 @@ public class DriveTrain {
 	 * @param rearRight
 	 * @return
 	 */
-	public Vector forwardMecanum(double frontLeft, double rearLeft, double frontRight, double rearRight) {
+	private Vector forwardMecanum(double frontLeft, double rearLeft, double frontRight, double rearRight) {
 		double vX = (frontLeft + rearLeft + frontRight + rearRight) / 4;
 		double vY = (-frontLeft + rearLeft - rearRight + frontRight) / 4;
 		double vTheta = (-frontLeft - rearLeft + rearRight + frontRight) / (4 * 90); //I believe this is in degrees
@@ -137,7 +137,7 @@ public class DriveTrain {
 		return new Vector (vX,vY,vTheta);
 	}
 	
-	public Vector displacementConversion(Vector periodSpeed){
+	private Vector displacementConversion(Vector periodSpeed){
 		Vector periodDisplacement = new Vector();
 		double time = periodTimer.get();
 		
@@ -175,13 +175,6 @@ public class DriveTrain {
 		driveTrain.theta.feeder.pidSet(pDisplacement.omega);
 		}
 		else System.out.println("WARNING: position finder attempted to run while disabled.");
-	}
-	
-	
-	public void autoPeriodic () {
-		enable();
-		runPositionFinder();
-		
 	}
 	
 	

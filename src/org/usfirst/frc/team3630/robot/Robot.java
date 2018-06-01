@@ -13,29 +13,33 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class Robot extends IterativeRobot {
-
-	public void robotInit() {
+	DriveTrain driveBase;
 	
+	
+	
+	public void robotInit() {
+	driveBase = new DriveTrain();
 	}
 
 	@Override
 	public void autonomousInit() {
-	
+		driveBase.enablePositionFinder();
 	}
 
 	@Override
 	public void autonomousPeriodic() {
-
-		
+		driveBase.runPositionFinder();
 	}
-
+	
 	/**
 	 * This function is called periodically during operator control.
 	 */
+	public void teleopInit(){
+		driveBase.disable();
+	}
 	@Override
 	public void teleopPeriodic() {
-		
-		
+		driveBase.teleopDrive();
 	}
 
 	/**
