@@ -5,6 +5,7 @@ import com.sun.prism.impl.ps.BaseShaderContext.SpecialShaderType;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.SPI;
@@ -44,11 +45,11 @@ public class DriveTrain {
 	//These are declared generically so that any speed controller can be used. This line does not need to be modified, but you can define your specific type of speed controller in the constructor (ie Talon, Victor etc)
 	Wheel fL, fR, rL, rR;
 	AHRS ahrs;
-	MecanumDrive driveTrain;
+	AutoDriveTrain driveTrain;
 	XboxController xBox;
 	public Vector displacement = new Vector(0,0,0);
 	public Timer periodTimer = new Timer();
-	PIDFeeder x,y,theta;
+	PIDController PIDx, PIDy, PIDtheta;
 	boolean isEnabled = false;
 	public DriveTrain () {
 		
@@ -75,7 +76,7 @@ public class DriveTrain {
 				new Talon(3)
 				);
 		
-		driveTrain = new MecanumDrive(fL.talon,rL.talon,fR.talon,rR.talon);
+		driveTrain = new AutoDriveTrain(fL.talon,rL.talon,fR.talon,rR.talon);
 	}
 	public void enable(){
 		isEnabled= true;
@@ -168,30 +169,20 @@ public class DriveTrain {
 				);
 		pDisplacement = fieldTranslation(pDisplacement,ahrs.getAngle());
 		pDisplacement = displacementConversion(pDisplacement);
+		
+		driveTrain.x.feeder.pidSet(pDisplacement.x);
+		driveTrain.y.feeder.pidSet(pDisplacement.y);
+		driveTrain.theta.feeder.pidSet(pDisplacement.omega);
 		}
 		else System.out.println("WARNING: position finder attempted to run while disabled.");
 	}
 	
 	
-	class PIDFeeder implements PIDSource {
-		double vSource, dSource;
-		PIDSourceType sourceType = PIDSourceType.kDisplacement;
-		public PIDFeeder (double _vSource, double _dSource){
-			vSource = _vSource;
-			dSource = _dSource;
-		}
-		public void setPIDSourceType(PIDSourceType pidSource){
-			sourceType = pidSource;
-		}
+	public void autoPeriodic () {
+		enable();
+		runPositionFinder();
 		
-		public PIDSourceType getPIDSourceType (){
-			return sourceType;
-		}
-		
-		public double pidGet() {
-			if(sourceType.equals(PIDSourceType.kDisplacement)) return dSource;
-			else return vSource;
-		}
 	}
+	
 	
 }
