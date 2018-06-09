@@ -54,7 +54,7 @@ public class AutoDriveTrain extends MecanumDrive {
 	PIDSystem x;
 	PIDSystem y;
 	PIDSystem theta;
-	
+	// note kep is default to be set to .05 this should be a constant to make it easily changeable 
 	public AutoDriveTrain(SpeedController frontLeftMotor, SpeedController rearLeftMotor,
 			SpeedController frontRightMotor, SpeedController rearRightMotor) {
 		super(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);

@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.SpeedController;
 
 public class Wheel {
+	// danger makes sure you double check pulses per revelution is correct
 	private static final int pulsesPerRevolution = 250;
 	public static final double wheelRadius = 4; //in inches, or whatever units you are using
 	XboxController xbox;
