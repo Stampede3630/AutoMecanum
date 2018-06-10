@@ -65,6 +65,8 @@ public class AutoDriveTrain extends MecanumDrive {
 
 	
 	public void autoDrive () {
+		
+		// auto drive calls the pid controller output from autoDriveTrain
 		super.driveCartesian(x.setter.pidGet(), y.setter.pidGet(), theta.setter.pidGet());
 	}
 }

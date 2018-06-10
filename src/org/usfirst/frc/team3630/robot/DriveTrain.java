@@ -21,10 +21,7 @@ import edu.wpi.first.wpilibj.XboxController;
  * The goal of this class is to handle the main functions of the drivetrain and to be able to be ported over into new code if necessary. 
  * This method handles all interactions with the drivetrain, which are the 4 motors and encoders that control robot movement through the mecanum drivetrain
  */
-/**
- * @author StampedeRobotics
- *
- */
+
 public class DriveTrain {
 	// this is a class for haneling the creation and management of vectors
 	class Vector {
@@ -58,7 +55,7 @@ public class DriveTrain {
 		
 		
 		
-		//Constructions can change here
+		//Constructions can change here 
 		fL = new Wheel(
 				new Encoder (0,1),
 				new Talon(0)
