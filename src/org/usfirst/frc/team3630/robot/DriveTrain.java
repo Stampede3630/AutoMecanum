@@ -21,12 +21,9 @@ import edu.wpi.first.wpilibj.XboxController;
  * The goal of this class is to handle the main functions of the drivetrain and to be able to be ported over into new code if necessary. 
  * This method handles all interactions with the drivetrain, which are the 4 motors and encoders that control robot movement through the mecanum drivetrain
  */
-/**
- * @author StampedeRobotics
- *
- */
+
 public class DriveTrain {
-	
+	// this is a class for haneling the creation and management of vectors
 	class Vector {
 		public double x,y, omega;
 		public Vector (double _x, double _y, double _omega){
@@ -58,7 +55,7 @@ public class DriveTrain {
 		
 		
 		
-		//Constructions can change here
+		//Constructions can change here 
 		fL = new Wheel(
 				new Encoder (0,1),
 				new Talon(0)
@@ -78,6 +75,8 @@ public class DriveTrain {
 		
 		driveTrain = new AutoDriveTrain(fL.talon,rL.talon,fR.talon,rR.talon);
 	}
+	
+	// method helps reset vectors 
 	public void enablePositionFinder(){
 		isEnabled= true;
 		periodTimer.start();
@@ -90,7 +89,7 @@ public class DriveTrain {
 		isEnabled = false;
 		periodTimer.stop();
 	}
-	
+	// stanndard driveing for basic telop functionalityh
 	public void teleopDrive () {
 		driveTrain.driveCartesian(
 				xBox.getX(Hand.kLeft),
@@ -109,6 +108,8 @@ public class DriveTrain {
 	 * This method translates the robot speed to match the speed relative to the field instead of the robot.
 	 * 
 	 */
+	
+	//how are we going to translate robot speed into a vector???
 	private Vector fieldTranslation(Vector robotSpeed, double theta_degrees){
 		Vector transformed = new Vector();
 		//converting the angle translations to radians. Note that the thetaY_radians variable is for manipulating the Y. For notes, please see the picture documentation.
@@ -129,6 +130,8 @@ public class DriveTrain {
 	 * @param rearRight
 	 * @return
 	 */
+	
+	// from what I think this dose get robot displacement and convert them into a single vector 
 	private Vector forwardMecanum(double frontLeft, double rearLeft, double frontRight, double rearRight) {
 		double vX = (frontLeft + rearLeft + frontRight + rearRight) / 4;
 		double vY = (-frontLeft + rearLeft - rearRight + frontRight) / 4;
@@ -137,6 +140,7 @@ public class DriveTrain {
 		return new Vector (vX,vY,vTheta);
 	}
 	
+	// helps measure total displacement 
 	private Vector displacementConversion(Vector periodSpeed){
 		Vector periodDisplacement = new Vector();
 		double time = periodTimer.get();
@@ -156,7 +160,7 @@ public class DriveTrain {
 	}
 
 	/**
-	 * 
+	 * position finder raly useful for pathfinder mecanum execustion. consider useing if we consier makeing a mecanum pathfinder
 	 */
 	public void runPositionFinder () {
 		if(isEnabled){

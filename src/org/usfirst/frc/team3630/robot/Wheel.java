@@ -8,7 +8,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.SpeedController;
 
+/**
+ * @author walsl
+ * speed controllers in this class should be genereic 
+ */
 public class Wheel {
+	// danger makes sure you double check pulses per revelution is correct
 	private static final int pulsesPerRevolution = 250;
 	public static final double wheelRadius = 4; //in inches, or whatever units you are using
 	XboxController xbox;
