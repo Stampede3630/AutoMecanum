@@ -13,10 +13,11 @@ public class AutoDriveTrain extends MecanumDrive {
 		private PIDSourceType sourceType;
 		private double sourceValue;
 		
+		// filp setting pid soruce
 		public void setPIDSourceType(PIDSourceType pidSource) {
 			sourceType = pidSource;
 		}
-
+		// pid setter source tyupe
 		@Override
 		public PIDSourceType getPIDSourceType() {
 			return sourceType;
@@ -41,6 +42,11 @@ public class AutoDriveTrain extends MecanumDrive {
 			return out;
 		}
 	}
+	
+	/**
+	 * @author walsl
+	 * class which sets up a basic pid subsystem for x,y and themta
+	 */
 	class PIDSystem {
 		public PIDfeeder feeder;
 		public PIDsetter setter;
@@ -54,7 +60,7 @@ public class AutoDriveTrain extends MecanumDrive {
 	PIDSystem x;
 	PIDSystem y;
 	PIDSystem theta;
-	// note kep is default to be set to .05 this should be a constant to make it easily changeable 
+	// feed in genetic speed controlerds 
 	public AutoDriveTrain(SpeedController frontLeftMotor, SpeedController rearLeftMotor,
 			SpeedController frontRightMotor, SpeedController rearRightMotor) {
 		super(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
@@ -64,6 +70,9 @@ public class AutoDriveTrain extends MecanumDrive {
 	}
 
 	
+	/**
+	 * drivetrain for autonomus whose pid setpoints are the output of the pid controllers
+	 */
 	public void autoDrive () {
 		
 		// auto drive calls the pid controller output from autoDriveTrain
