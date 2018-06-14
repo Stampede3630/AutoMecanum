@@ -58,19 +58,19 @@ public class DriveTrain {
 		//Constructions can change here 
 		fL = new Wheel(
 				new Encoder (0,1),
-				new Talon(0)
+				new Talon(Consts.fLPwm)
 				);
 		fR = new Wheel(
 				new Encoder(2,3),
-				new Talon(1)
+				new Talon(Consts.fRPwm)
 				);
 		rL = new Wheel(
 				new Encoder(4,5),
-				new Talon(2)
+				new Talon(Consts.rLPwm)
 				);
 		rR = new Wheel(
 				new Encoder(6,7),
-				new Talon(3)
+				new Talon(Consts.rRPwm)
 				);
 		
 		driveTrain = new AutoDriveTrain(fL.talon,rL.talon,fR.talon,rR.talon);
@@ -113,8 +113,8 @@ public class DriveTrain {
 	private Vector fieldTranslation(Vector robotSpeed, double theta_degrees){
 		Vector transformed = new Vector();
 		//converting the angle translations to radians. Note that the thetaY_radians variable is for manipulating the Y. For notes, please see the picture documentation.
-		double theta_radians = theta_degrees * Math.PI/180;
-		double thetaY_radians = (theta_degrees+90) * Math.PI/180;
+		double theta_radians = theta_degrees *Consts.degreesToRadians;
+		double thetaY_radians = (theta_degrees+90) * Consts.degreesToRadians;
 		
 		transformed.x = robotSpeed.x * Math.cos(theta_radians) + robotSpeed.y * Math.cos(thetaY_radians);
 		transformed.y = robotSpeed.x * Math.sin(theta_radians) + robotSpeed.y * Math.sin(thetaY_radians);
@@ -162,6 +162,8 @@ public class DriveTrain {
 	/**
 	 * position finder raly useful for pathfinder mecanum execustion. consider useing if we consier makeing a mecanum pathfinder
 	 */
+	
+	
 	public void runPositionFinder () {
 		if(isEnabled){
 		Vector pDisplacement;
