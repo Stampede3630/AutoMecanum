@@ -131,7 +131,8 @@ public class DriveTrain {
 	 * @return
 	 */
 	
-	// from what I think this dose get robot displacement and convert them into a single vector 
+	// from what I think this dose get robot displacement in x and y and other stats and averges them to get them into a forward vector
+
 	private Vector forwardMecanum(double frontLeft, double rearLeft, double frontRight, double rearRight) {
 		double vX = (frontLeft + rearLeft + frontRight + rearRight) / 4;
 		double vY = (-frontLeft + rearLeft - rearRight + frontRight) / 4;
