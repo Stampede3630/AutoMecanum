@@ -89,7 +89,11 @@ public class DriveTrain {
 		isEnabled = false;
 		periodTimer.stop();
 	}
-	// stanndard driveing for basic telop functionalityh
+	
+	/**
+	 * drivetrain for telop
+	 * not feild centric drive all is needed is xbox coltroll
+	 */
 	public void teleopDrive () {
 		driveTrain.driveCartesian(
 				xBox.getX(Hand.kLeft),
@@ -142,6 +146,7 @@ public class DriveTrain {
 	}
 	
 	// helps measure total displacement 
+	// output of the class is a sppeed bector
 	private Vector displacementConversion(Vector periodSpeed){
 		Vector periodDisplacement = new Vector();
 		double time = periodTimer.get();
@@ -161,22 +166,26 @@ public class DriveTrain {
 	}
 
 	/**
-	 * position finder raly useful for pathfinder mecanum execustion. consider useing if we consier makeing a mecanum pathfinder
+	 * position finder  useful for pathfinder mecanum execustion. consider useing if we consier makeing a mecanum pathfinder
 	 */
 	
 	
 	public void runPositionFinder () {
 		if(isEnabled){
 		Vector pDisplacement;
+		// gets a unified vector of robots inches 
 		pDisplacement = forwardMecanum(
 				fL.getDistInches(),
 				rL.getDistInches(),
 				fR.getDistInches(),
 				rR.getDistInches()
 				);
+		// translate pDisplacement to the translated robot speed compared to the feildS
 		pDisplacement = fieldTranslation(pDisplacement,ahrs.getAngle());
-		pDisplacement = displacementConversion(pDisplacement);
 		
+		// returns the displacement of robot
+		pDisplacement = displacementConversion(pDisplacement);
+		// feeeds the displacement into pid setpoints 
 		driveTrain.x.feeder.pidSet(pDisplacement.x);
 		driveTrain.y.feeder.pidSet(pDisplacement.y);
 		driveTrain.theta.feeder.pidSet(pDisplacement.omega);
