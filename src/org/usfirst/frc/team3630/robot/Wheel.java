@@ -14,8 +14,7 @@ import edu.wpi.first.wpilibj.SpeedController;
  */
 public class Wheel {
 	// danger makes sure you double check pulses per revelution is correct
-	private static final int pulsesPerRevolution = 250;
-	public static final double wheelRadius = 4; //in inches, or whatever units you are using
+ //in inches, or whatever units you are using
 	XboxController xbox;
 	public Encoder encoder;
 	public SpeedController talon;
@@ -39,7 +38,7 @@ public class Wheel {
 		
 		encoder.setMaxPeriod(1);
 		// Define distance in terms of inches
-		encoder.setDistancePerPulse(wheelRadius*2*Math.PI/pulsesPerRevolution);
+		encoder.setDistancePerPulse(Consts.wheelRadius*2*Math.PI/Consts.pulsesPerRevolution);
 		encoder.setMinRate(10);
 		encoder.setSamplesToAverage(7);
 		encoder.setPIDSourceType(PIDSourceType.kDisplacement);
@@ -66,7 +65,7 @@ public class Wheel {
 	 */
 	public double getDistInches()
 	{
-		return getDistRadians() * wheelRadius;
+		return getDistRadians() * Consts.wheelRadius;
 	}
 
 }

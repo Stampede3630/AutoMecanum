@@ -58,9 +58,9 @@ public class AutoDriveTrain extends MecanumDrive {
 	public AutoDriveTrain(SpeedController frontLeftMotor, SpeedController rearLeftMotor,
 			SpeedController frontRightMotor, SpeedController rearRightMotor) {
 		super(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
-		x = new PIDSystem(.05,0,0);
-		y = new PIDSystem(.05,0,0);
-		theta = new PIDSystem(.05,0,0);
+		x = new PIDSystem(Consts.xKP,Consts.xKI,Consts.xKD);
+		y = new PIDSystem(Consts.yKP,Consts.yKI,Consts.yKD);
+		theta = new PIDSystem(Consts.thetaKP,Consts.thetaKI,Consts.thetaKD);
 	}
 
 	
