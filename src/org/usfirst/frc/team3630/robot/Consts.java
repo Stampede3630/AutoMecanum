@@ -17,6 +17,11 @@ public static final int pulsesPerRevolution = 250;
 public static final double wheelRadius = 4;
 
 
-public static final int = fLPwm = 0;
+public static final int fLPwm = 0;
+public static final int fRPwm = 1;
+public static final int rLPwm = 2;
+public static final int rRPwm = 2;
 
+
+public static final double degreesToRadians =  Math.PI/180;
 }
