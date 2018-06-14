@@ -15,4 +15,8 @@ public final static double thetaKI = 0;
 public final  static double thetaKD = 0;
 public static final int pulsesPerRevolution = 250;
 public static final double wheelRadius = 4;
+
+
+public static final int = fLPwm = 0;
+
 }
