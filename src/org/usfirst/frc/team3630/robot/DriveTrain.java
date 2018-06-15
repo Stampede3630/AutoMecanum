@@ -47,7 +47,7 @@ public class DriveTrain {
 	public Vector displacement = new Vector(0,0,0);
 	public Timer periodTimer = new Timer();
 	PIDController PIDx, PIDy, PIDtheta;
-	boolean isEnabled = false;
+	boolean isAutoPosistionEnabled = false;
 	public DriveTrain () {
 		
 		xBox = new XboxController(0);
@@ -76,17 +76,20 @@ public class DriveTrain {
 		driveTrain = new AutoDriveTrain(fL.talon,rL.talon,fR.talon,rR.talon);
 	}
 	
-	// method helps reset vectors and init for auto periodic 
+	// method helps reset vectors and autoInit in robot.java
 	public void enablePositionFinder(){
-		isEnabled= true;
+		isAutoPosistionEnabled= true;
 		periodTimer.start();
 		ahrs.reset();
 		//reset displacement
 		displacement.reset();
 	}
 	
+	/**
+	 * disable auto 
+	 */
 	public void disable(){
-		isEnabled = false;
+		isAutoPosistionEnabled = false;
 		periodTimer.stop();
 	}
 	
@@ -174,7 +177,7 @@ public class DriveTrain {
 	
 	// where can auto displacement be set by the user?
 	public void runPositionPIDFeeder () {
-		if(isEnabled){
+		if(isAutoPosistionEnabled){
 		Vector pDisplacement;
 		// gets a unified vector of robots inches 
 		pDisplacement = forwardMecanum(
