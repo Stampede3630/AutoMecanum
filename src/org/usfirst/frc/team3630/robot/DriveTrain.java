@@ -86,7 +86,7 @@ public class DriveTrain {
 	}
 	
 	/**
-	 * disable auto 
+	 * disable auto postion findier
 	 */
 	public void disable(){
 		isAutoPosistionEnabled = false;
