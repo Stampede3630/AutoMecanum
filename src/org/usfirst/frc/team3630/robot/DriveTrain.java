@@ -76,7 +76,7 @@ public class DriveTrain {
 		driveTrain = new AutoDriveTrain(fL.talon,rL.talon,fR.talon,rR.talon);
 	}
 	
-	// method helps reset vectors 
+	// method helps reset vectors and init for auto periodic 
 	public void enablePositionFinder(){
 		isEnabled= true;
 		periodTimer.start();
@@ -136,7 +136,11 @@ public class DriveTrain {
 	 */
 	
 	// from what I think this dose get robot displacement in x and y and other stats and averges them to get them into a forward vector
-
+	/**
+	 * position finder  useful for pathfinder mecanum execustion. consider useing if we consier makeing a mecanum pathfinder
+	 * would probobly need to be feeded into dis
+	 */
+	
 	private Vector forwardMecanum(double frontLeft, double rearLeft, double frontRight, double rearRight) {
 		double vX = (frontLeft + rearLeft + frontRight + rearRight) / 4;
 		double vY = (-frontLeft + rearLeft - rearRight + frontRight) / 4;
@@ -147,6 +151,7 @@ public class DriveTrain {
 	
 	// helps measure total displacement 
 	// output of the class is a sppeed bector
+	
 	private Vector displacementConversion(Vector periodSpeed){
 		Vector periodDisplacement = new Vector();
 		double time = periodTimer.get();
@@ -164,13 +169,11 @@ public class DriveTrain {
 		
 		return displacement;
 	}
-
-	/**
-	 * position finder  useful for pathfinder mecanum execustion. consider useing if we consier makeing a mecanum pathfinder
-	 */
 	
 	
-	public void runPositionFinder () {
+	
+	// where can auto displacement be set by the user?
+	public void runPositionPIDFeeder () {
 		if(isEnabled){
 		Vector pDisplacement;
 		// gets a unified vector of robots inches 

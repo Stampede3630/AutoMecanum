@@ -28,7 +28,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousPeriodic() {
-		driveBase.runPositionFinder();
+		driveBase.runPositionPIDFeeder();
 	}
 	
 	/**
