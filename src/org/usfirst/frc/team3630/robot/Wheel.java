@@ -52,7 +52,7 @@ public class Wheel {
 
 	public double getDistDegrees()
 	{
-		return encoder.getDistance() * 180.0 / Math.PI; 
+		return encoder.getDistance() * Consts.radiansToDegrees; 
 	}
 
 	public double getDistRadians()

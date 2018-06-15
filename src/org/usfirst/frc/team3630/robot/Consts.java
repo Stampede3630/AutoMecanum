@@ -24,4 +24,5 @@ public static final int rRPwm = 2;
 
 
 public static final double degreesToRadians =  Math.PI/180;
+public static final double radiansToDegrees =  180/Math.PI;
 }
